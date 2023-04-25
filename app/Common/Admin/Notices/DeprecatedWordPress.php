@@ -18,7 +18,7 @@ class DeprecatedWordPress {
 	 * @since 4.1.2
 	 */
 	public function __construct() {
-		add_action( 'wp_ajax_aioseo-dismiss-deprecated-wordpress-notice', [ $this, 'dismissNotice' ] );
+		add_action ( 'wp_ajax_aioseo-dismiss-deprecated-wordpress-notice', [ $this, 'dismissNotice' ] );
 	}
 
 	/**
@@ -31,13 +31,13 @@ class DeprecatedWordPress {
 	public function maybeShowNotice() {
 		global $wp_version;
 
-		$dismissed = get_option( '_aioseo_deprecated_wordpress_dismissed', true );
+		$dismissed = get_option ( '_aioseo_deprecated_wordpress_dismissed', true );
 		if ( '1' === $dismissed ) {
 			return;
 		}
 
 		// Only show to users that interact with our pluign.
-		if ( ! current_user_can( 'publish_posts' ) ) {
+		if ( ! current_user_can ( 'publish_posts' ) ) {
 			return;
 		}
 
@@ -49,7 +49,7 @@ class DeprecatedWordPress {
 		$this->showNotice();
 
 		// Print the script to the footer.
-		add_action( 'admin_footer', [ $this, 'printScript' ] );
+		add_action ( 'admin_footer', [ $this, 'printScript' ] );
 	}
 
 	/**
@@ -119,7 +119,7 @@ class DeprecatedWordPress {
 	 */
 	public function printScript() {
 		// Create a nonce.
-		$nonce = wp_create_nonce( 'aioseo-dismiss-deprecated-wordpress' );
+		$nonce = wp_create_nonce ( 'aioseo-dismiss-deprecated-wordpress' );
 		?>
 		<script>
 			window.addEventListener('load', function () {
@@ -135,7 +135,7 @@ class DeprecatedWordPress {
 					postData += '&action=aioseo-dismiss-deprecated-wordpress-notice'
 					postData += '&nonce=<?php echo esc_html( $nonce ); ?>'
 
-					httpRequest.open('POST', '<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>')
+					httpRequest.open('POST', '<?php echo esc_url ( admin_url ( 'admin-ajax.php' ) ); ?>')
 					httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
 					httpRequest.send(postData)
 				})
@@ -157,10 +157,10 @@ class DeprecatedWordPress {
 			return;
 		}
 
-		check_ajax_referer( 'aioseo-dismiss-deprecated-wordpress', 'nonce' );
+		check_ajax_referer ( 'aioseo-dismiss-deprecated-wordpress', 'nonce' );
 
-		update_option( '_aioseo_deprecated_wordpress_dismissed', true );
+		update_option ( '_aioseo_deprecated_wordpress_dismissed', true );
 
-		return wp_send_json_success();
+		return wp_send_json_success ();
 	}
 }

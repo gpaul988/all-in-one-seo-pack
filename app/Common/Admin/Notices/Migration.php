@@ -46,8 +46,8 @@ class Migration {
 		?>
 		<div class="notice notice-info aioseo-migration">
 			<p><strong><?php echo esc_html( $string1 ); ?></strong></p>
-			<p><?php echo esc_html( $string2 ); ?></p>
-			<p><?php echo esc_html( $string3 ); ?></p>
+			<p><?php echo esc_html($string2); ?></p>
+			<p><?php echo esc_html($string3); ?></p>
 		</div>
 		<style>
 		</style>
